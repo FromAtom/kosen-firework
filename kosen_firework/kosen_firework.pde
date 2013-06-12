@@ -25,6 +25,8 @@ import java.awt.event.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+String hoge = "http://www.processing.org/reference/images/loadImage_2";
+PImage webImg = loadImage(hoge,"png");
 
 int windowX = 800;
 int windowY = 600;
@@ -51,7 +53,6 @@ void setup(){
     size(windowX,windowY);
     smooth();
     frameRate(30);
-
 
     //GUI系のセットアップ
     controlP5 = new ControlP5(this);
@@ -96,6 +97,8 @@ void draw(){
     background(0);
     textAlign(CENTER);
     text("One day...", windowX/2, windowY/2);
+    
+    image(webImg, 10, 10);
 }
 
 //コンシューマキーとコンシューマシークレットを読み込み
@@ -241,7 +244,10 @@ class MyStreamAdapter extends UserStreamAdapter {
         // ステータスを受け取って何かをする
         date = status.getCreatedAt();
 
-        System.out.println(tweetedAt.get(Calendar.HOUR_OF_DAY) + " | " +status.getUser().getName() + " : " + status.getText());
+        System.out.println("URL : " + status.getUser().getBiggerProfileImageURL());
+        String url = status.getUser().getBiggerProfileImageURL();
+        webImg = loadImage(url);
+        //System.out.println(tweetedAt.get(Calendar.HOUR_OF_DAY) + " | " +status.getUser().getName() + " : " + status.getText());
     }
 }
 
