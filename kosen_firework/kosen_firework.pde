@@ -244,10 +244,10 @@ class MyStreamAdapter extends UserStreamAdapter {
         // ステータスを受け取って何かをする
         date = status.getCreatedAt();
 
-        System.out.println("URL : " + status.getUser().getBiggerProfileImageURL());
+        //System.out.println("URL : " + status.getUser().getBiggerProfileImageURL());
         String url = status.getUser().getBiggerProfileImageURL();
         webImg = loadImage(url);
-        //System.out.println(tweetedAt.get(Calendar.HOUR_OF_DAY) + " | " +status.getUser().getName() + " : " + status.getText());
+        System.out.println(tweetedAt.get(Calendar.HOUR_OF_DAY) + " | " +status.getUser().getName() + " : " + status.getText());
     }
 }
 
@@ -274,8 +274,15 @@ private void startUserStream() {
 
     // イベントを受け取るリスナーオブジェクトを設定
     twitterStream.addListener(new MyStreamAdapter());
+    
+    //フィルターを追加
+    FilterQuery filterQuery = new FilterQuery();
+    // 検索する文字列を設定します。 複数設定することも出来て、配列で渡します
+    filterQuery.track(new String[] {"#kosenconf"});
+    // フィルターをつけてStreamを開始
+    twitterStream.filter(filterQuery);
 
     // User Streamの取得をスタート
-    twitterStream.user();
+    //twitterStream.user();
     println("stream start!!!");
 }
