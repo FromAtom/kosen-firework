@@ -8,6 +8,7 @@ public class Firework{
   float widthI = 50;
   int numOfBall = 50;
   float digOfLounch = 20;
+  float triggerOfFiring = 0;
   
   public Firework(float x, float y, float initSpeed, float gravity, float ballSize, color startColor){
     layers = new ArrayList();
@@ -30,7 +31,7 @@ public class Firework{
   }
   
   public color detectImageColor(PImage image){
-    return color(255, 255, 255);
+    return color(random(255), 255, 255);
   }
   
   public void addLayer(float ballSize, color ballColor, float maxSpeed){
@@ -39,15 +40,15 @@ public class Firework{
     fl.setColor(ballColor);
     fl.setMaxSpeed(maxSpeed);
     fl.setGravity(this.gravity);
-//    fl.setTimeFunction(new CubDec(100));
-    fl.setTimeFunction(new KeepFlash(150, 100));
+    fl.setTimeFunction(new CubDec(100));
+//    fl.setTimeFunction(new KeepFlash(150, 100));
     layers.add(fl);
   }
   
   public void drawAndReflesh(){
     if(starter != null){
       starter.drawAndReflesh();
-      if(starter.getVY() > 0.3){
+      if(starter.getVY() > triggerOfFiring){
         Fireball ball = starter.getFireball();
         for(int i = layers.size()-1; i >= 0; i--){
           ((Firelayer)layers.get(i)).generateSphere(this.numOfBall, ball.getX(), ball.getY());

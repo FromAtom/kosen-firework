@@ -107,8 +107,8 @@ void draw(){
     
     fill(255);
     text("Kosen Firework", windowX/2, windowY/2);
-      fws.drawAndReflesh();
-
+    
+    fws.drawAndReflesh();
 }
 
 //コンシューマキーとコンシューマシークレットを読み込み
@@ -258,6 +258,7 @@ class MyStreamAdapter extends UserStreamAdapter {
         String url = status.getUser().getBiggerProfileImageURL();
         webImg = loadImage(url);
         System.out.println(tweetedAt.get(Calendar.HOUR_OF_DAY) + " | " +status.getUser().getName() + " : " + status.getText());
+        fws.addNewFirework(width/2.0, height/1.1,webImg);
     }
 }
 
@@ -290,9 +291,9 @@ private void startUserStream() {
     // 検索する文字列を設定します。 複数設定することも出来て、配列で渡します
     filterQuery.track(new String[] {"#kosenconf"});
     // フィルターをつけてStreamを開始
-    twitterStream.filter(filterQuery);
+    //twitterStream.filter(filterQuery);
 
     // User Streamの取得をスタート
-    //twitterStream.user();
+    twitterStream.user();
     println("stream start!!!");
 }
