@@ -27,8 +27,8 @@ import java.net.URISyntaxException;
 String hoge = "http://www.processing.org/reference/images/loadImage_2";
 PImage webImg = loadImage(hoge,"png");
 
-int windowX = 800;
-int windowY = 600;
+int windowX = 1024;
+int windowY = 760;
 
 ControlP5 controlP5;
 Textfield tfPIN;
@@ -48,10 +48,14 @@ String name     = "user";
 
 boolean startFlag = false;
 
+//花火用インスタンス
+Fireworks fws;
+
 void setup(){
     size(windowX,windowY);
     smooth();
     frameRate(30);
+    colorMode(HSB, 255);
 
     //GUI系のセットアップ
     controlP5 = new ControlP5(this);
@@ -89,14 +93,22 @@ void setup(){
         tfPIN.hide();
         startUserStream();
     }
+    
+    //花火周りのセットアップ
+    fws = new Fireworks();
+    for(int i = 0; i < 20; i++){
+        fws.addNewFireworkTest(width/2.0, height/1.1);
+    }
 }
 
 void draw(){
     background(0);
     textAlign(CENTER);
-    text("Kosen Firework", windowX/2, windowY/2);
     
-    image(webImg, 10, 10);
+    fill(255);
+    text("Kosen Firework", windowX/2, windowY/2);
+      fws.drawAndReflesh();
+
 }
 
 //コンシューマキーとコンシューマシークレットを読み込み
