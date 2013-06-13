@@ -13,7 +13,6 @@ import twitter4j.*;
 import twitter4j.internal.json.*;
 
 import controlP5.*;
-
 import java.util.List;
 import java.util.Date;
 import java.util.Calendar;
@@ -59,7 +58,6 @@ void setup(){
     tfPIN     = controlP5.addTextfield("PIN", windowX/2-105, windowY/2+40, 200, 20);
     tfPIN.setFocus(true);
 
-
     //Twitter周りのセットアップ
     loadKeys();
     TwitterFactory factory = new TwitterFactory();
@@ -96,7 +94,7 @@ void setup(){
 void draw(){
     background(0);
     textAlign(CENTER);
-    text("One day...", windowX/2, windowY/2);
+    text("Kosen Firework", windowX/2, windowY/2);
     
     image(webImg, 10, 10);
 }
