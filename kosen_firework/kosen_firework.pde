@@ -13,10 +13,7 @@ import twitter4j.*;
 import twitter4j.internal.json.*;
 
 import controlP5.*;
-import java.util.List;
-import java.util.Date;
-import java.util.Calendar;
-import java.util.Properties;
+import java.util.*;
 
 import java.io.*;
 import java.awt.*;
@@ -50,6 +47,11 @@ boolean startFlag = false;
 
 //花火用インスタンス
 Fireworks fws;
+
+//map処理用
+HashMap<String,String> heldSiteMap = new HashMap<String,String>();
+ArrayList<String[]> heldInfoList = new ArrayList<String[]>();
+MapRenderClass mapRender;
 
 void setup(){
     size(windowX,windowY);
@@ -96,19 +98,46 @@ void setup(){
     
     //花火周りのセットアップ
     fws = new Fireworks();
-    for(int i = 0; i < 20; i++){
+    //for(int i = 0; i < 20; i++){
         fws.addNewFireworkTest(width/2.0, height/1.1);
-    }
+    //}
+    
+    
+    //マップ周りのセットアップ
+    initHeldInfoList();
+    initHeldSiteMap();
+    mapRender = new MapRenderClass();
 }
 
 void draw(){
     background(0);
     textAlign(CENTER);
     
+    if(frameCount % 30 == 0)
+        fws.addNewFireworkTest(width/2.0, height/1.1);
+    
+    
     fill(255);
     text("Kosen Firework", windowX/2, windowY/2);
-        
+    mapRender.update();
     fws.drawAndReflesh();
+}
+
+
+void initHeldInfoList(){
+  heldInfoList.add(new String[]{"000nagano","2099/99/99","nagano"});
+  heldInfoList.add(new String[]{"001tokyo","2008/6/14","tokyo"});
+  heldInfoList.add(new String[]{"002hokkaido","2008/9/13","hokkaido"});
+  heldInfoList.add(new String[]{"003tokyo","2008/12/6","tokyo"});
+}
+ 
+void initHeldSiteMap(){
+  heldSiteMap.put("tokyo", "map_tokyo.png");
+  heldSiteMap.put("hokkaido", "map_hokkaido.png");
+  heldSiteMap.put("fukui", "map_fukui.png");
+  heldSiteMap.put("fukuoka", "map_fukuoka.png");
+  heldSiteMap.put("hukushima", "map_hukushima.png");
+  heldSiteMap.put("nagano", "map_nagano.png");
 }
 
 //コンシューマキーとコンシューマシークレットを読み込み

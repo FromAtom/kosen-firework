@@ -1,5 +1,9 @@
+import ddf.minim.*;
+
 public class Firework{
   ArrayList layers;
+  Minim minim;
+  AudioPlayer player;
   float gravity = 0;
   FallingFireball starter;
   PImage image = null;
@@ -23,6 +27,8 @@ public class Firework{
     starter.setLogLen(10);
     
     this.tf = new Linear(100);
+//    this.minim = new Minim(this);
+//    this.player = minim.loadFile("lounch.mp3");
   }
   
   public int getNumOfLayers(){
@@ -66,7 +72,7 @@ public class Firework{
 //      int totalBalls = 0;
       if(this.image != null){
 //        totalBalls /= layers.size();
-        tint(255, ((layers.size()>0)?((Firelayer)layers.get(0)).getCounter():0) * 255); 
+        tint(255, ((layers.size()>0)?tf.function(((Firelayer)layers.get(0)).getCounter()):0) * 255); 
         image(this.image, this.x - widthI/2, this.y - heightI/2, widthI, heightI);
       }
         
@@ -78,7 +84,6 @@ public class Firework{
       }
 //      println(totalBalls);
 //      println(totalTimeFunc);
-
     }
   }
 }

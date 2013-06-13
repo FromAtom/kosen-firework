@@ -9,7 +9,7 @@ public class Linear implements TimeFunction{
     this.limit = limit;
   }
   public float function(float timeCount){
-    return 1.0 - pow(timeCount/this.limit, 2);
+    return 1.0 - timeCount/this.limit;
   }
 }
 
