@@ -1,7 +1,7 @@
 public class Fireworks{
   ArrayList works;
-  float sizeOfFireball = 0.2;
-  float sizeOfLounchball = 3;
+  float sizeOfFireball = 0.5;
+  float sizeOfLounchball = 1;
   
   public Fireworks(){
     works = new ArrayList();

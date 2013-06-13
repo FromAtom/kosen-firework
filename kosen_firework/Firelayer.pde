@@ -6,6 +6,7 @@ public class Firelayer {
   float ballSize = 1;
   float gravity = 0;
   TimeFunction tf = null;
+  TimeFunction regularTF = null;
   
   public Firelayer() {
     balls = new ArrayList();
@@ -25,10 +26,10 @@ public class Firelayer {
     this.ballSize = ballSize;
   }
   
-  public void setTimeFunction(TimeFunction tf){
+  public void setTimeFunc(TimeFunction tf){
     this.tf = tf;
   }
-  
+    
   public void setGravity(float gravity){
     this.gravity = gravity;
   }
@@ -47,6 +48,10 @@ public class Firelayer {
   
   public float getTimeFunc(){
     return this.tf.function(this.counter);
+  }
+  
+  public int getCounter(){
+    return this.counter;
   }
 
   public void generateSphere(int num, float x, float y) {

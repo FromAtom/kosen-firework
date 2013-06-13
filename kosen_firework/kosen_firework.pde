@@ -54,7 +54,7 @@ Fireworks fws;
 void setup(){
     size(windowX,windowY);
     smooth();
-    frameRate(30);
+    frameRate(100);
     colorMode(HSB, 255);
 
     //GUI系のセットアップ
@@ -107,7 +107,7 @@ void draw(){
     
     fill(255);
     text("Kosen Firework", windowX/2, windowY/2);
-    
+        
     fws.drawAndReflesh();
 }
 

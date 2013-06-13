@@ -4,11 +4,13 @@ public class Firework{
   FallingFireball starter;
   PImage image = null;
   float x = 0, y = 0;
+  
   float heightI = 50;
   float widthI = 50;
   int numOfBall = 50;
   float digOfLounch = 20;
   float triggerOfFiring = 0;
+  TimeFunction tf;
   
   public Firework(float x, float y, float initSpeed, float gravity, float ballSize, color startColor){
     layers = new ArrayList();
@@ -19,6 +21,8 @@ public class Firework{
     starter = new FallingFireball(x, y, ballSize, p3d.getX(), p3d.getY(), p3d.getZ(), 0, gravity, 0);
     starter.setColor(startColor);
     starter.setLogLen(10);
+    
+    this.tf = new Linear(100);
   }
   
   public int getNumOfLayers(){
@@ -40,7 +44,7 @@ public class Firework{
     fl.setColor(ballColor);
     fl.setMaxSpeed(maxSpeed);
     fl.setGravity(this.gravity);
-    fl.setTimeFunction(new CubDec(100));
+    fl.setTimeFunc(new CubDec(100));
 //    fl.setTimeFunction(new KeepFlash(150, 100));
     layers.add(fl);
   }
@@ -60,22 +64,21 @@ public class Firework{
     }
     else{
 //      int totalBalls = 0;
-      float totalTimeFunc = 0;
+      if(this.image != null){
+//        totalBalls /= layers.size();
+        tint(255, ((layers.size()>0)?((Firelayer)layers.get(0)).getCounter():0) * 255); 
+        image(this.image, this.x - widthI/2, this.y - heightI/2, widthI, heightI);
+      }
+        
       for(int i = layers.size()-1; i >= 0; i--){
         ((Firelayer)layers.get(i)).drawAndReflesh();
-        totalTimeFunc += ((Firelayer)layers.get(i)).getTimeFunc();
         if(((Firelayer)layers.get(i)).getNumOfBalls() == 0){
           layers.remove(i);
         }
       }
 //      println(totalBalls);
 //      println(totalTimeFunc);
-      if(this.image != null){
-//        totalBalls /= layers.size();
-        totalTimeFunc /= layers.size();
-        tint(255, totalTimeFunc * 255); 
-        image(this.image, this.x - widthI/2, this.y - heightI/2, widthI, heightI); 
-      }
+
     }
   }
 }

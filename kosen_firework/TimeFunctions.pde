@@ -1,6 +1,16 @@
 
 interface TimeFunction{
-  float function(float timeCount);
+  public float function(float timeCount);
+}
+
+public class Linear implements TimeFunction{
+  float limit;
+  public Linear(float limit){
+    this.limit = limit;
+  }
+  public float function(float timeCount){
+    return 1.0 - pow(timeCount/this.limit, 2);
+  }
 }
 
 public class CubDec implements TimeFunction{
@@ -11,7 +21,7 @@ public class CubDec implements TimeFunction{
     this.limit = limit;
   }
   
-  float function(float timeCount){
+  public float function(float timeCount){
     float retVal = 1.0 - pow(timeCount/limit, 3);
     retVal += random(retVal*bias) - retVal*bias/2;  
     return (retVal<0) ? ((timeCount > limit*0.5) ? 0 : 0.0001) : ((retVal>1) ? 1 : retVal);
@@ -27,7 +37,7 @@ public class KeepFlash implements TimeFunction{
     this.flash = flash;
   }
   
-  float function(float timeCount){
+  public float function(float timeCount){
     if(timeCount < keep){
       return 0.2;
     }
