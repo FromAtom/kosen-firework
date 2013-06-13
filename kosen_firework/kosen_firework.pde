@@ -12,6 +12,7 @@ import twitter4j.internal.http.*;
 import twitter4j.*;
 import twitter4j.internal.json.*;
 
+import ddf.minim.*;
 import controlP5.*;
 import java.util.*;
 
@@ -47,6 +48,10 @@ boolean startFlag = false;
 
 //花火用インスタンス
 Fireworks fws;
+Minim minim;
+AudioPlayer lounchSound;
+AudioPlayer bombSound;
+
 
 //map処理用
 HashMap<String,String> heldSiteMap = new HashMap<String,String>();
@@ -97,7 +102,8 @@ void setup(){
     }
     
     //花火周りのセットアップ
-    fws = new Fireworks();
+    minim = new Minim(this);
+    fws = new Fireworks(minim);
     //for(int i = 0; i < 20; i++){
         fws.addNewFireworkTest(width/2.0, height/1.1);
     //}

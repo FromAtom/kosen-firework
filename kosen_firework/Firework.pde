@@ -2,8 +2,7 @@ import ddf.minim.*;
 
 public class Firework{
   ArrayList layers;
-  Minim minim;
-  AudioPlayer player;
+  AudioPlayer lounch, bomb;
   float gravity = 0;
   FallingFireball starter;
   PImage image = null;
@@ -16,6 +15,8 @@ public class Firework{
   float triggerOfFiring = 0;
   TimeFunction tf;
   
+  private boolean isFirst = true;
+  
   public Firework(float x, float y, float initSpeed, float gravity, float ballSize, color startColor){
     layers = new ArrayList();
     this.gravity = gravity;
@@ -27,8 +28,16 @@ public class Firework{
     starter.setLogLen(10);
     
     this.tf = new Linear(100);
-//    this.minim = new Minim(this);
-//    this.player = minim.loadFile("lounch.mp3");
+  }
+  
+  public void stop(){
+    this.lounch.close();
+    this.bomb.close();
+  }
+  
+  public void setAudio(Minim minim){
+    this.lounch = minim.loadFile("lounch.mp3");
+    this.bomb = minim.loadFile("bomb.mp3");  
   }
   
   public int getNumOfLayers(){
@@ -57,6 +66,10 @@ public class Firework{
   
   public void drawAndReflesh(){
     if(starter != null){
+      if(this.isFirst){
+        lounch.play(0);
+        this.isFirst = false;
+      }
       starter.drawAndReflesh();
       if(starter.getVY() > triggerOfFiring){
         Fireball ball = starter.getFireball();
@@ -66,6 +79,7 @@ public class Firework{
         this.x = ball.getX();
         this.y = ball.getY();
         starter = null;
+        this.isFirst = true;
       }
     }
     else{
@@ -75,7 +89,10 @@ public class Firework{
         tint(255, ((layers.size()>0)?tf.function(((Firelayer)layers.get(0)).getCounter()):0) * 255); 
         image(this.image, this.x - widthI/2, this.y - heightI/2, widthI, heightI);
       }
-        
+      if(this.isFirst && ((layers.size()>0)?(((Firelayer)layers.get(0)).getCounter()):0) > 30){
+        bomb.play(0);
+        this.isFirst = false;
+      }
       for(int i = layers.size()-1; i >= 0; i--){
         ((Firelayer)layers.get(i)).drawAndReflesh();
         if(((Firelayer)layers.get(i)).getNumOfBalls() == 0){
