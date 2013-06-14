@@ -33,6 +33,10 @@ public class MapRenderClass {
 
     textFont(font, 23);
     text(currentSiteInfo[1], 10, 70); 
+
+    textFont(font, 23);
+    text("@"+currentSiteInfo[2], 10, 110); 
+
   }
 
   

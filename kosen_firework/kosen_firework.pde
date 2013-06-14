@@ -45,6 +45,7 @@ String filename = null;
 String name     = "user";
 
 boolean startFlag = false;
+PImage topImage;
 
 //花火用インスタンス
 Fireworks fws;
@@ -95,7 +96,6 @@ void setup(){
         }
     }
     else{
-        startFlag           = true;
         ACCESS_TOKEN        = accessToken.getToken();
         ACCESS_TOKEN_SECRET = accessToken.getTokenSecret();
         tfPIN.hide();
@@ -115,13 +115,15 @@ void setup(){
     initlounchPointMap();
 
     mapRender = new MapRenderClass();
+    topImage = loadImage("topImage.png");
 }
 
 void draw(){
     background(0);
     textAlign(CENTER);
 
-    if(frameCount % 30 == 0)
+    if(startFlag){
+    if(frameCount % 120 == 0)
         mapRender.nextHeldSite();
 
     if(frameCount % 30 == 0){
@@ -133,11 +135,20 @@ void draw(){
     }
 
     fill(255);
-    text("Kosen Firework", windowX/2, windowY/2);
     mapRender.update();
     fws.drawAndReflesh();
+    }
+    else{
+      image(topImage,0,0);
+    }
 }
 
+void keyPressed() {
+  if (key == ' ') {
+    frameCount = 0;
+    startFlag = true;
+  }
+}
 
 void initHeldInfoList(){
     heldInfoList.add(new String[]{"第一回 高専カンファレンス","#001tokyo","2008/6/14","tokyo"});
@@ -451,9 +462,9 @@ private void startUserStream() {
     // 検索する文字列を設定します。 複数設定することも出来て、配列で渡します
     filterQuery.track(new String[] {"#kosenconf"});
     // フィルターをつけてStreamを開始
-    //twitterStream.filter(filterQuery);
+    twitterStream.filter(filterQuery);
 
     // User Streamの取得をスタート
-    twitterStream.user();
+    //twitterStream.user();
     println("stream start!!!");
 }
