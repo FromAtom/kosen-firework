@@ -15,6 +15,7 @@ public class Firework{
   float digOfLounch = 20;
   float triggerOfFiring = 0;
   TimeFunction tf;
+  int deley = 30;
   
   private boolean isFirst = true;
   
@@ -112,7 +113,7 @@ public class Firework{
         tint(255, ((layers.size()>0)?tf.function(((Firelayer)layers.get(0)).getCounter()):0) * 255); 
         image(this.image, this.x - widthI/2, this.y - heightI/2, widthI, heightI);
       }
-      if(this.isFirst && ((layers.size()>0)?(((Firelayer)layers.get(0)).getCounter()):0) > 30){
+      if(this.isFirst && ((layers.size()>0)?(((Firelayer)layers.get(0)).getCounter()):0) > deley){
         bomb.play(0);
         this.isFirst = false;
       }

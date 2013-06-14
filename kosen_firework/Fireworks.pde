@@ -4,6 +4,9 @@ public class Fireworks{
   ArrayList works;
   float sizeOfFireball = 0.5;
   float sizeOfLounchball = 1;
+  float initSpeed = -15;
+  float gravity = 0.007;
+  float maxFireSpeed = 1.0;
   Minim minim;
 //  AudioPlayer lounch, bomb;
   
@@ -23,8 +26,8 @@ public class Fireworks{
 //  }
   
   public void addNewFirework(float x, float y, PImage icon){
-    Firework fw = new Firework(x, y, -50, 0.007, sizeOfLounchball, color(0,0,225));
-    fw.addLayerByImage(sizeOfFireball, icon, 1.0);
+    Firework fw = new Firework(x, y, initSpeed, gravity, sizeOfLounchball, color(0,0,225));
+    fw.addLayerByImage(sizeOfFireball, icon, maxFireSpeed);
     if(this.minim != null){
       fw.setAudio(this.minim);
     }
@@ -36,8 +39,8 @@ public class Fireworks{
   }
   
   public void addNewFireworkTest(float x, float y){
-    Firework fw = new Firework(x, y, -50, 0.007, sizeOfLounchball, color(0,0,225));
-    fw.addLayer(sizeOfFireball, color((int)random(255), 255, 255), 1.0);
+    Firework fw = new Firework(x, y, initSpeed, gravity, sizeOfLounchball, color(0,0,225));
+    fw.addLayer(sizeOfFireball, color((int)random(255), 255, 255), maxFireSpeed);
     if(this.minim != null){
       fw.setAudio(this.minim);
     }
