@@ -13,6 +13,11 @@ public class MapRenderClass {
     currentImage = loadImage(heldSiteMap.get(currentSiteInfo[2]));
   }
   
+  public int getCurrentHeldNumber(){
+    return currentHeldNumber;
+  }
+
+  
   public void nextHeldSite(){
     currentHeldNumber++;
     currentSiteInfo = heldInfoList.get(currentHeldNumber);
