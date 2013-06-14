@@ -52,10 +52,11 @@ Minim minim;
 AudioPlayer lounchSound;
 AudioPlayer bombSound;
 
-
 //map処理用
 HashMap<String,String> heldSiteMap = new HashMap<String,String>();
 ArrayList<String[]> heldInfoList = new ArrayList<String[]>();
+HashMap<String,float[]> lounchPointMap = new HashMap<String,float[]>();
+
 MapRenderClass mapRender;
 
 void setup(){
@@ -111,6 +112,8 @@ void setup(){
     //マップ周りのセットアップ
     initHeldInfoList();
     initHeldSiteMap();
+    initlounchPointMap();
+
     mapRender = new MapRenderClass();
 }
 
@@ -120,10 +123,14 @@ void draw(){
 
     if(frameCount % 60 == 0)
         mapRender.nextHeldSite();
-    
-    if(frameCount % 30 == 0)
-        fws.addNewFireworkTest(width/2.0, height/1.1);
 
+    if(frameCount % 30 == 0){
+        int currentNum = mapRender.getCurrentHeldNumber();
+        String[] currentHeldInfo = heldInfoList.get(currentNum);
+        float[] lounchPoint = lounchPointMap.get(currentHeldInfo[3]);
+
+        fws.addNewFireworkTest(lounchPoint[0], lounchPoint[1]);
+    }
 
     fill(255);
     text("Kosen Firework", windowX/2, windowY/2);
@@ -197,6 +204,34 @@ void initHeldInfoList(){
     heldInfoList.add(new String[]{"高専カンファレンス in 津山","#070tsuyama","2013/3/16",""});
     heldInfoList.add(new String[]{"Rails寺子屋 x kosenconf","#068terakoya","2013/3/23","tokyo"});
     heldInfoList.add(new String[]{"高専カンファレンス5周年記念パーティ","#071kc5party","2013/6/15","tokyo"});
+}
+
+void initlounchPointMap(){
+    lounchPointMap.put("aichi",new float[]{467,581});
+    lounchPointMap.put("aomori",new float[]{754,411});
+    lounchPointMap.put("ehime",new float[]{210,576});
+    lounchPointMap.put("fukui",new float[]{438,535});
+    lounchPointMap.put("fukuoka",new float[]{102,555});
+    lounchPointMap.put("gifu",new float[]{475,552});
+    lounchPointMap.put("hokkaido",new float[]{854,338});
+    lounchPointMap.put("hukushima",new float[]{664,530});
+    lounchPointMap.put("hyogo",new float[]{342,551});
+    lounchPointMap.put("ibaraki",new float[]{644,570});
+    lounchPointMap.put("ishikawa",new float[]{463,526});
+    lounchPointMap.put("iwate",new float[]{751,463});
+    lounchPointMap.put("kyoto",new float[]{384,554});
+    lounchPointMap.put("mie",new float[]{415,594});
+    lounchPointMap.put("nagano",new float[]{535,540});
+    lounchPointMap.put("nara",new float[]{389,588});
+    lounchPointMap.put("niigata",new float[]{595,510});
+    lounchPointMap.put("oita",new float[]{130,580});
+    lounchPointMap.put("osaka",new float[]{377,576});
+    lounchPointMap.put("shimane",new float[]{253,524});
+    lounchPointMap.put("shizuoka",new float[]{503,596});
+    lounchPointMap.put("tochigi",new float[]{622,550});
+    lounchPointMap.put("tokyo",new float[]{586,583});
+    lounchPointMap.put("tottori",new float[]{322,531});
+    lounchPointMap.put("toyama",new float[]{499,521});
 }
 
 void initHeldSiteMap(){
@@ -373,8 +408,13 @@ class MyStreamAdapter extends UserStreamAdapter {
         //System.out.println("URL : " + status.getUser().getBiggerProfileImageURL());
         String url = status.getUser().getBiggerProfileImageURL();
         webImg = loadImage(url);
-        System.out.println(tweetedAt.get(Calendar.HOUR_OF_DAY) + " | " +status.getUser().getName() + " : " + status.getText());
-        fws.addNewFirework(width/2.0, height/1.1,webImg);
+        //System.out.println(tweetedAt.get(Calendar.HOUR_OF_DAY) + " | " +status.getUser().getName() + " : " + status.getText());
+
+        int currentNum = mapRender.getCurrentHeldNumber();
+        String[] currentHeldInfo = heldInfoList.get(currentNum);
+        float[] lounchPoint = lounchPointMap.get(currentHeldInfo[3]);
+
+        fws.addNewFirework(lounchPoint[0], lounchPoint[1],webImg);
     }
 }
 
