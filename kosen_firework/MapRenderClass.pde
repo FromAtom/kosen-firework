@@ -16,7 +16,6 @@ public class MapRenderClass {
   public int getCurrentHeldNumber(){
     return currentHeldNumber;
   }
-
   
   public void nextHeldSite(){
     currentHeldNumber++;
@@ -24,14 +23,22 @@ public class MapRenderClass {
     currentImage = loadImage(heldSiteMap.get(currentSiteInfo[2]));
   }
   
+  public void writeInfoData(){
+    PFont font = createFont("rounded-mplus-1p-thin",48,true);
+    textFont(font, 32);
+    textAlign(LEFT);
+    text(currentSiteInfo[0], 10, 40); 
+
+    textFont(font, 23);
+    text("@"+currentSiteInfo[1], 10, 70); 
+  }
+
+  
   public void update(){
     noTint();
     image(backGroundImage,0,0);
 
-    textSize(32);
-    text(currentSiteInfo[1], 10, 40); 
-    text(currentSiteInfo[0], 10, 70); 
-
+    writeInfoData();
 
     degree += degreeStep;
     alphaDepth = abs(sin(radians(degree))*255);

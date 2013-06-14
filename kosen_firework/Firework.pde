@@ -1,4 +1,5 @@
 import ddf.minim.*;
+import java.util.*;
 
 public class Firework{
   ArrayList layers;
@@ -65,7 +66,14 @@ public class Firework{
   }
   
   public color detectImageColor(PImage image){
-    return color(random(255), 255, 255);
+    ArrayList<Float> hVal = new ArrayList<Float>(), sVal = new ArrayList<Float>();
+    image.loadPixels();
+    for(int i = 0; i < image.width * image.height; i++){
+      hVal.add(hue(image.pixels[i]));
+    }
+    Collections.sort(hVal);
+  
+    return color(hVal.get(hVal.size()/2), 255, 255);
   }
   
   public void addLayer(float ballSize, color ballColor, float maxSpeed){
