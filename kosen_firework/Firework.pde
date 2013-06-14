@@ -45,8 +45,23 @@ public class Firework{
   }
   
   public void addLayerByImage(float ballSize, PImage image, float maxSpeed){
-    this.image = image;
+    this.image = makeRoundImage(image);
     addLayer(ballSize, detectImageColor(image), maxSpeed);
+  }
+  
+  PImage makeRoundImage(PImage iconImage){
+    PGraphics roundedImage;
+
+    roundedImage = createGraphics(iconImage.width+40, iconImage.height+40);
+    roundedImage.beginDraw();
+    roundedImage.background(255,0);
+    roundedImage.image(iconImage,20,20);
+    roundedImage.noFill();
+    roundedImage.strokeWeight(15);
+    roundedImage.ellipse(iconImage.width/2+20, iconImage.height/2+20, iconImage.width+15, iconImage.height+15);
+    roundedImage.endDraw();
+    
+    return roundedImage;
   }
   
   public color detectImageColor(PImage image){
