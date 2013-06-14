@@ -10,7 +10,7 @@ public class MapRenderClass {
   public MapRenderClass(){
     backGroundImage = loadImage("map_default.png");           
     currentSiteInfo = heldInfoList.get(currentHeldNumber);
-    currentImage = loadImage(heldSiteMap.get(currentSiteInfo[2]));
+    currentImage = loadImage("map_" + heldSiteMap.get(currentSiteInfo[3]));
   }
   
   public int getCurrentHeldNumber(){
@@ -20,7 +20,7 @@ public class MapRenderClass {
   public void nextHeldSite(){
     currentHeldNumber++;
     currentSiteInfo = heldInfoList.get(currentHeldNumber);
-    currentImage = loadImage(heldSiteMap.get(currentSiteInfo[2]));
+    currentImage = loadImage("map_" + heldSiteMap.get(currentSiteInfo[3]));
   }
   
   public void writeInfoData(){
