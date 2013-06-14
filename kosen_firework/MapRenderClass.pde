@@ -19,6 +19,8 @@ public class MapRenderClass {
   
   public void nextHeldSite(){
     currentHeldNumber++;
+    if(currentHeldNumber >= heldInfoList.size())
+      currentHeldNumber = heldInfoList.size()-1;
     currentSiteInfo = heldInfoList.get(currentHeldNumber);
     currentImage = loadImage("map_" + heldSiteMap.get(currentSiteInfo[3]));
   }
@@ -30,7 +32,7 @@ public class MapRenderClass {
     text(currentSiteInfo[0], 10, 40); 
 
     textFont(font, 23);
-    text("@"+currentSiteInfo[1], 10, 70); 
+    text(currentSiteInfo[1], 10, 70); 
   }
 
   

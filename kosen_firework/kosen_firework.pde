@@ -121,7 +121,7 @@ void draw(){
     background(0);
     textAlign(CENTER);
 
-    if(frameCount % 60 == 0)
+    if(frameCount % 30 == 0)
         mapRender.nextHeldSite();
 
     if(frameCount % 30 == 0){
@@ -174,7 +174,7 @@ void initHeldInfoList(){
     heldInfoList.add(new String[]{"高専カンファレンス in 松江","#037matsue","2011/9/24","shimane"});
     heldInfoList.add(new String[]{"高専カンファレンス in 小山","#039oyama","2011/9/25","tochigi"});
     heldInfoList.add(new String[]{"つくば理学カンファレンス","#031sciences","2011/10/8","ibaraki"});
-    heldInfoList.add(new String[]{"高専カンファレンス in 仙台","#036sendai","2011/10/22",""});
+    heldInfoList.add(new String[]{"高専カンファレンス in 仙台","#036sendai","2011/10/22","miyagi"});
     heldInfoList.add(new String[]{"高専カンファレンス in 茨城 ","#032ibaraki","2011/10/29","ibaraki"});
     heldInfoList.add(new String[]{"高専カンファレンス in 長岡 ","#035nagaoka","2011/11/5","niigata"});
     heldInfoList.add(new String[]{"高専女子カンファレンス3 in 石川","#040joshi-ishikawa","2011/11/12","ishikawa"});
@@ -201,7 +201,7 @@ void initHeldInfoList(){
     heldInfoList.add(new String[]{"高専カンファレンス in 神戸2","#065kobe2","2013/1/12","hyogo"});
     heldInfoList.add(new String[]{"高専カンファレンス in 沼津2","#066numazu2","2013/1/19","shizuoka"});
     heldInfoList.add(new String[]{"高専カンファレンス in 名古屋","#050nagoya","2013/3/9","aichi"});
-    heldInfoList.add(new String[]{"高専カンファレンス in 津山","#070tsuyama","2013/3/16",""});
+    heldInfoList.add(new String[]{"高専カンファレンス in 津山","#070tsuyama","2013/3/16","okayama"});
     heldInfoList.add(new String[]{"Rails寺子屋 x kosenconf","#068terakoya","2013/3/23","tokyo"});
     heldInfoList.add(new String[]{"高専カンファレンス5周年記念パーティ","#071kc5party","2013/6/15","tokyo"});
 }
@@ -232,6 +232,8 @@ void initlounchPointMap(){
     lounchPointMap.put("tokyo",new float[]{586,583});
     lounchPointMap.put("tottori",new float[]{322,531});
     lounchPointMap.put("toyama",new float[]{499,521});
+    lounchPointMap.put("miyagi",new float[]{706,492});
+    lounchPointMap.put("okayama",new float[]{292,546});
 }
 
 void initHeldSiteMap(){
@@ -253,6 +255,8 @@ void initHeldSiteMap(){
     heldSiteMap.put("nara", "nara.png");
     heldSiteMap.put("niigata", "niigata.png");
     heldSiteMap.put("oita", "oita.png");
+    heldSiteMap.put("okayama", "okayama.png");
+    heldSiteMap.put("miyagi", "miyagi.png");
     heldSiteMap.put("osaka", "osaka.png");
     heldSiteMap.put("shimane", "shimane.png");
     heldSiteMap.put("shizuoka", "shizuoka.png");
