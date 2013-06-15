@@ -150,8 +150,9 @@ void draw(){
 
         PFont font = createFont("rounded-mplus-1p-thin",48,true);
         textFont(font, 23);
+        textAlign(RIGHT);
         fill(255);
-        text("打ち上げた花火数："+fireworkCount, 10, 200);
+        text("打ち上げた花火数："+fireworkCount, windowX-20, windowY-20);
 
     }
     else{

@@ -29,13 +29,13 @@ public class MapRenderClass {
     PFont font = createFont("rounded-mplus-1p-thin",48,true);
     textFont(font, 32);
     textAlign(LEFT);
-    text(currentSiteInfo[0], 10, 40); 
+    text(currentSiteInfo[0], 20, 50); 
 
     textFont(font, 23);
-    text(currentSiteInfo[1], 10, 70); 
+    text(currentSiteInfo[1], 20, 80); 
 
     textFont(font, 23);
-    text("@"+currentSiteInfo[2], 10, 110); 
+    text("@"+currentSiteInfo[2], 20, 120); 
 
   }
 
