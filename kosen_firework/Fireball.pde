@@ -4,7 +4,7 @@ public class Fireball{
   float ballSize = 0;
   color ballColor;
   
-  float ballStroke = 2;
+  float ballStroke = 5;
   
   public Fireball(float x, float y, float ballSize, color ballColor){
     this.x = x;
