@@ -47,6 +47,7 @@ String name     = "user";
 boolean startFlag = false;
 boolean nextFlag = false;
 PImage topImage;
+int fireworkCount = 0;
 
 //花火用インスタンス
 Fireworks fws;
@@ -124,39 +125,47 @@ void draw(){
     textAlign(CENTER);
 
     if(startFlag){
-    if(second() % 4 == 0){
-        if(nextFlag){
-          mapRender.nextHeldSite();
-          nextFlag = false;
+        if(second() % 4 == 0){
+            if(nextFlag){
+                mapRender.nextHeldSite();
+                nextFlag = false;
+            }
         }
+        else{
+            nextFlag = true;
+        }
+
+        if(frameCount % 60 == 0){
+            int currentNum = mapRender.getCurrentHeldNumber();
+            String[] currentHeldInfo = heldInfoList.get(currentNum);
+            float[] lounchPoint = lounchPointMap.get(currentHeldInfo[3]);
+
+            fireworkCount++;
+            fws.addNewFireworkTest(lounchPoint[0], lounchPoint[1]);
+        }
+
+        fill(255);
+        mapRender.update();
+        fws.drawAndReflesh();
+
+        PFont font = createFont("rounded-mplus-1p-thin",48,true);
+        textFont(font, 23);
+        fill(255);
+        text("打ち上げた花火数："+fireworkCount, 10, 200);
+
     }
     else{
-       nextFlag = true;
-    }
-    
-    if(frameCount % 30 == 0){
-        int currentNum = mapRender.getCurrentHeldNumber();
-        String[] currentHeldInfo = heldInfoList.get(currentNum);
-        float[] lounchPoint = lounchPointMap.get(currentHeldInfo[3]);
-
-        fws.addNewFireworkTest(lounchPoint[0], lounchPoint[1]);
-    }
-
-    fill(255);
-    mapRender.update();
-    fws.drawAndReflesh();
-    }
-    else{
-      image(topImage,0,0);
+        image(topImage,0,0);
     }
 }
 
 void keyPressed() {
-  if (key == ' ') {
-    frameCount = 0;
-    startFlag = true;
-    nextFlag = false;
-  }
+    if (key == ' ') {
+        frameCount = 0;
+        startFlag = true;
+        nextFlag = false;
+        fireworkCount = 0;
+    }
 }
 
 void initHeldInfoList(){
@@ -438,7 +447,15 @@ class MyStreamAdapter extends UserStreamAdapter {
         String[] currentHeldInfo = heldInfoList.get(currentNum);
         float[] lounchPoint = lounchPointMap.get(currentHeldInfo[3]);
 
-        fws.addNewFirework(lounchPoint[0], lounchPoint[1],webImg);
+        if (webImg.width == 0) {
+            // Image is not yet loaded
+        } else if (webImg.width == -1) {
+            // This means an error occurred during image loading
+        } else {
+            fireworkCount++;
+            fws.addNewFirework(lounchPoint[0], lounchPoint[1],webImg);
+        }
+
     }
 }
 
