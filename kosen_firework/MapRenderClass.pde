@@ -37,6 +37,9 @@ public class MapRenderClass {
     textFont(font, 23);
     text("@"+currentSiteInfo[2], 20, 120); 
 
+    stroke(#FFAA00,255-alphaDepth);
+    strokeWeight(3);
+    line(10, 20, 10, 125);
   }
 
   
