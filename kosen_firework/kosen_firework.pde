@@ -45,6 +45,7 @@ String filename = null;
 String name     = "user";
 
 boolean startFlag = false;
+boolean nextFlag = false;
 PImage topImage;
 
 //花火用インスタンス
@@ -63,7 +64,7 @@ MapRenderClass mapRender;
 void setup(){
     size(windowX,windowY);
     smooth();
-    frameRate(100);
+    frameRate(60);
     colorMode(HSB, 255);
 
     //GUI系のセットアップ
@@ -123,9 +124,16 @@ void draw(){
     textAlign(CENTER);
 
     if(startFlag){
-    if(frameCount % 120 == 0)
-        mapRender.nextHeldSite();
-
+    if(second() % 4 == 0){
+        if(nextFlag){
+          mapRender.nextHeldSite();
+          nextFlag = false;
+        }
+    }
+    else{
+       nextFlag = true;
+    }
+    
     if(frameCount % 30 == 0){
         int currentNum = mapRender.getCurrentHeldNumber();
         String[] currentHeldInfo = heldInfoList.get(currentNum);
@@ -147,6 +155,7 @@ void keyPressed() {
   if (key == ' ') {
     frameCount = 0;
     startFlag = true;
+    nextFlag = false;
   }
 }
 
