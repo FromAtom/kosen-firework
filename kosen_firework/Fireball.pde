@@ -4,6 +4,8 @@ public class Fireball{
   float ballSize = 0;
   color ballColor;
   
+  float ballStroke = 2;
+  
   public Fireball(float x, float y, float ballSize, color ballColor){
     this.x = x;
     this.y = y;
@@ -41,6 +43,7 @@ public class Fireball{
       ellipseMode(CENTER);
       fill(ballColor);
       stroke(ballColor);
+      strokeWeight(ballStroke);
       ellipse(x, y, ballSize, ballSize);
     popMatrix();
   }

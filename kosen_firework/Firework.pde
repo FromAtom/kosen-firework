@@ -83,8 +83,12 @@ public class Firework{
     fl.setColor(ballColor);
     fl.setMaxSpeed(maxSpeed);
     fl.setGravity(this.gravity);
-    fl.setTimeFunc(new CubDec(100));
-//    fl.setTimeFunction(new KeepFlash(150, 100));
+    if(random(2) < 1){
+      fl.setTimeFunc(new CubDec(100));
+    }
+    else{
+      fl.setTimeFunc(new KeepFlash(150, 100));
+    }
     layers.add(fl);
   }
   
