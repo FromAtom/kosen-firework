@@ -135,7 +135,7 @@ void draw(){
             nextFlag = true;
         }
 
-        if(frameCount % 60 == 0){
+        if(frameCount % 100 == 0){
             int currentNum = mapRender.getCurrentHeldNumber();
             String[] currentHeldInfo = heldInfoList.get(currentNum);
             float[] lounchPoint = lounchPointMap.get(currentHeldInfo[3]);
