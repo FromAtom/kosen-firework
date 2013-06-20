@@ -67,14 +67,62 @@ public class Firework{
   }
   
   public color detectImageColor(PImage image){
+    int numOfColors = 8;
     ArrayList<Float> hVal = new ArrayList<Float>(), sVal = new ArrayList<Float>();
+    ArrayList<Float> hSpan = new ArrayList<Float>(), sSpan = new ArrayList<Float>();
     image.loadPixels();
     for(int i = 0; i < image.width * image.height; i++){
-      hVal.add(hue(image.pixels[i]));
+      if(saturation(image.pixels[i]) > colorMax * 0.1 && brightness(image.pixels[i]) > colorMax * 0.1){
+        hVal.add(hue(image.pixels[i]));
+      }
+      if(saturation(image.pixels[i]) > colorMax * 0.1){
+        sVal.add(saturation(image.pixels[i]));
+      }
     }
+    
     Collections.sort(hVal);
+    Collections.sort(sVal);
+    int pointerH = 0, pointerS = 0;
+    int maxCountH = 0, maxCountS = 0; 
   
-    return color(hVal.get(hVal.size()/2), colorMax, colorMax);
+    for(int i = 0; i < (colorMax+1)/numOfColors; i++){
+      int counterH = pointerH, counterS = pointerS;
+      while(pointerH < hVal.size() && hVal.get(pointerH) < i*numOfColors){
+        pointerH++;
+      }
+      while(pointerS < sVal.size() && sVal.get(pointerS) < i*numOfColors){
+        pointerS++;
+      }
+      if(maxCountH <= pointerH - counterH){
+        maxCountH = pointerH - counterH;
+        hSpan.clear();
+        for(int j = 0; j <= maxCountH; j++){
+          if(j != 0) hSpan.add(hVal.get(pointerH - j));
+        }
+      }
+      if(maxCountS <= pointerS - counterS){
+        maxCountS = pointerS - counterS;
+        sSpan.clear();
+        for(int j = 0; j <= maxCountS; j++){
+          if(j != 0) sSpan.add(sVal.get(pointerS - j));
+        }
+      }
+    }
+    Collections.sort(hSpan);
+    Collections.sort(sSpan);
+    
+    if(hSpan.size() != 0 && sSpan.size() != 0){
+      return color(hSpan.get(hSpan.size()/2), sSpan.get(sSpan.size()/2), 255);
+    }
+    else if(hSpan.size() == 0){
+      return color(colorMax, sSpan.get(sSpan.size()/2), colorMax);
+    }
+    else if(sSpan.size() == 0){
+      return color(hSpan.get(hSpan.size()/2), colorMax, colorMax);
+    }
+    else{
+      return color(colorMax, 0, colorMax);
+    }
   }
   
   public void addLayer(float ballSize, color ballColor, float maxSpeed){

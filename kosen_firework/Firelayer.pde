@@ -6,7 +6,6 @@ public class Firelayer {
   float ballSize = 1;
   float gravity = 0;
   LightEffectFunction lef = null;
-  LightEffectFunction reglef = null;
   
   public Firelayer() {
     balls = new ArrayList();
