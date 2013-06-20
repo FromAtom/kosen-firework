@@ -50,7 +50,7 @@ PImage topImage;
 int fireworkCount = 0;
 
 //花火用インスタンス
-Fireworks fws;
+FireworksManager fwsm;
 Minim minim;
 AudioPlayer lounchSound;
 AudioPlayer bombSound;
@@ -106,9 +106,9 @@ void setup(){
 
     //花火周りのセットアップ
     minim = new Minim(this);
-    fws = new Fireworks(minim);
+    fwsm = new FireworksManager(minim);
     //for(int i = 0; i < 20; i++){
-    fws.addNewFireworkTest(width/2.0, height/1.1);
+    fwsm.addNewFireworkTest(width/2.0, height/1.1);
     //}
 
     //マップ周りのセットアップ
@@ -141,12 +141,12 @@ void draw(){
             float[] lounchPoint = lounchPointMap.get(currentHeldInfo[3]);
 
             fireworkCount++;
-            fws.addNewFireworkTest(lounchPoint[0], lounchPoint[1]);
+            fwsm.addNewFireworkTest(lounchPoint[0], lounchPoint[1]);
         }
 
         fill(255);
         mapRender.update();
-        fws.drawAndReflesh();
+        fwsm.drawAndReflesh();
 
         PFont font = createFont("rounded-mplus-1p-thin",48,true);
         textFont(font, 23);
@@ -454,7 +454,7 @@ class MyStreamAdapter extends UserStreamAdapter {
             // This means an error occurred during image loading
         } else {
             fireworkCount++;
-            fws.addNewFirework(lounchPoint[0], lounchPoint[1],webImg);
+            fwsm.addNewFirework(lounchPoint[0], lounchPoint[1],webImg);
         }
 
     }

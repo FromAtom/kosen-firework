@@ -14,9 +14,9 @@ public class Firework{
   int numOfBall = 50;
   float digOfLounch = 20;
   float triggerOfFiring = 0;
-  TimeFunction tf;
+  LightEffectFunction lef;
   int deley = 30;
-  
+  float colorMax = 255;
   private boolean isFirst = true;
   
   public Firework(float x, float y, float initSpeed, float gravity, float ballSize, color startColor){
@@ -29,7 +29,7 @@ public class Firework{
     starter.setColor(startColor);
     starter.setLogLen(10);
     
-    this.tf = new Linear(100);
+    this.lef = new Linear(100);
   }
   
   public void stop(){
@@ -74,7 +74,7 @@ public class Firework{
     }
     Collections.sort(hVal);
   
-    return color(hVal.get(hVal.size()/2), 255, 255);
+    return color(hVal.get(hVal.size()/2), colorMax, colorMax);
   }
   
   public void addLayer(float ballSize, color ballColor, float maxSpeed){
@@ -84,10 +84,10 @@ public class Firework{
     fl.setMaxSpeed(maxSpeed);
     fl.setGravity(this.gravity);
     if(random(2) < 1){
-      fl.setTimeFunc(new CubDec(100));
+      fl.setLEFunc(new CubDec(100));
     }
     else{
-      fl.setTimeFunc(new KeepFlash(150, 100));
+      fl.setLEFunc(new KeepFlash(150, 100));
     }
     layers.add(fl);
   }
@@ -111,10 +111,8 @@ public class Firework{
       }
     }
     else{
-//      int totalBalls = 0;
       if(this.image != null){
-//        totalBalls /= layers.size();
-        tint(255, ((layers.size()>0)?tf.function(((Firelayer)layers.get(0)).getCounter()):0) * 255); 
+        tint(colorMax, ((layers.size()>0)?lef.function(((Firelayer)layers.get(0)).getCounter()):0) * colorMax); 
         image(this.image, this.x - widthI/2, this.y - heightI/2, widthI, heightI);
       }
       if(this.isFirst && ((layers.size()>0)?(((Firelayer)layers.get(0)).getCounter()):0) > deley){
@@ -127,8 +125,6 @@ public class Firework{
           layers.remove(i);
         }
       }
-//      println(totalBalls);
-//      println(totalTimeFunc);
     }
   }
 }
