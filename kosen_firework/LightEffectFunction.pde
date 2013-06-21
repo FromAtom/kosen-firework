@@ -1,9 +1,9 @@
 
-interface TimeFunction{
+interface LightEffectFunction{
   public float function(float timeCount);
 }
 
-public class Linear implements TimeFunction{
+public class Linear implements LightEffectFunction{
   float limit;
   public Linear(float limit){
     this.limit = limit;
@@ -13,7 +13,7 @@ public class Linear implements TimeFunction{
   }
 }
 
-public class CubDec implements TimeFunction{
+public class CubDec implements LightEffectFunction{
   float limit;
   float bias = 2.0;
   
@@ -28,7 +28,7 @@ public class CubDec implements TimeFunction{
   }
 }
 
-public class KeepFlash implements TimeFunction{
+public class KeepFlash implements LightEffectFunction{
   float keep, flash;
   float bias = 2.0;
   
