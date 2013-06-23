@@ -5,8 +5,7 @@ public class Firelayer {
   color ballColor;
   float ballSize = 1;
   float gravity = 0;
-  TimeFunction tf = null;
-  TimeFunction regularTF = null;
+  LightEffectFunction lef = null;
   
   public Firelayer() {
     balls = new ArrayList();
@@ -26,8 +25,8 @@ public class Firelayer {
     this.ballSize = ballSize;
   }
   
-  public void setTimeFunc(TimeFunction tf){
-    this.tf = tf;
+  public void setLEFunc(LightEffectFunction lef){
+    this.lef = lef;
   }
     
   public void setGravity(float gravity){
@@ -46,8 +45,8 @@ public class Firelayer {
     return this.balls.size();
   }
   
-  public float getTimeFunc(){
-    return this.tf.function(this.counter);
+  public float getLEFunc(){
+    return this.lef.function(this.counter);
   }
   
   public int getCounter(){
@@ -72,7 +71,6 @@ public class Firelayer {
     p3d.rotateZ(radians(random(360)));
 
     FallingFireball ffb = new FallingFireball(x, y, ballSize, p3d.x, p3d.y, p3d.z, 0, this.gravity, 0);
-    //    FallingFireball ffb = new FallingFireball(x, y, ballSize, p3d.x, p3d.y, p3d.z, 0, 0.02, 0);
     ffb.setColor(ballColor);
 
     return ffb;
@@ -84,9 +82,8 @@ public class Firelayer {
       color fbc;
       for (int i = balls.size()-1; i >= 0; i--) {
         ffb = (FallingFireball)balls.get(i);
-        float alpha = 255*this.tf.function(this.counter);
-        if(this.tf != null){
-//          println(this.tf.function(this.counter));
+        float alpha = 255*this.lef.function(this.counter);
+        if(this.lef != null){
           fbc = ffb.getFireball().getColor();
           ffb.setColor(color(hue(fbc), saturation(fbc), brightness(fbc), alpha));
         }

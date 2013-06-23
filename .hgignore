@@ -1,0 +1,3 @@
+syntax: glob
+kosen_firework/data/twitter4j.properties
+kosen_firework/sketch.properties

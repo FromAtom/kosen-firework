@@ -45,12 +45,14 @@ String filename = null;
 String name     = "user";
 
 boolean startFlag = false;
-boolean nextFlag = false;
+//boolean nextFlag = false;
+final int C_PAUSED = 0, C_ENTER = 1, C_GONEXT = 2;
+int mapRendState = C_PAUSED;
 PImage topImage;
 int fireworkCount = 0;
 
 //花火用インスタンス
-Fireworks fws;
+FireworksManager fwsm;
 Minim minim;
 AudioPlayer lounchSound;
 AudioPlayer bombSound;
@@ -106,9 +108,9 @@ void setup(){
 
     //花火周りのセットアップ
     minim = new Minim(this);
-    fws = new Fireworks(minim);
+    fwsm = new FireworksManager(minim);
     //for(int i = 0; i < 20; i++){
-    fws.addNewFireworkTest(width/2.0, height/1.1);
+//    fwsm.addNewFireworkTest(width/2.0, height/1.1);
     //}
 
     //マップ周りのセットアップ
@@ -126,13 +128,16 @@ void draw(){
 
     if(startFlag){
         if(second() % 4 == 0){
-            if(nextFlag){
-                mapRender.nextHeldSite();
-                nextFlag = false;
-            }
+          if(mapRendState == C_ENTER){
+            mapRendState = C_PAUSED;
+          }
+          else if(mapRendState == C_GONEXT){
+            mapRender.nextHeldSite();
+            mapRendState = C_PAUSED;
+          }
         }
         else{
-            nextFlag = true;
+            mapRendState = C_GONEXT;
         }
 
         if(frameCount % 100 == 0){
@@ -141,12 +146,12 @@ void draw(){
             float[] lounchPoint = lounchPointMap.get(currentHeldInfo[3]);
 
             fireworkCount++;
-            fws.addNewFireworkTest(lounchPoint[0], lounchPoint[1]);
+            fwsm.addNewFireworkTest(lounchPoint[0], lounchPoint[1]);
         }
 
         fill(255);
         mapRender.update();
-        fws.drawAndReflesh();
+        fwsm.drawAndReflesh();
 
         PFont font = createFont("rounded-mplus-1p-thin",48,true);
         textFont(font, 23);
@@ -164,7 +169,8 @@ void keyPressed() {
     if (key == ' ') {
         frameCount = 0;
         startFlag = true;
-        nextFlag = false;
+//        nextFlag = false;
+        mapRendState = C_ENTER;
         fireworkCount = 0;
     }
 }
@@ -454,7 +460,7 @@ class MyStreamAdapter extends UserStreamAdapter {
             // This means an error occurred during image loading
         } else {
             fireworkCount++;
-            fws.addNewFirework(lounchPoint[0], lounchPoint[1],webImg);
+            fwsm.addNewFirework(lounchPoint[0], lounchPoint[1],webImg);
         }
 
     }

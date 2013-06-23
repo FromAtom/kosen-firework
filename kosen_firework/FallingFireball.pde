@@ -12,6 +12,8 @@ public class FallingFireball{
   ArrayList pointsLogs;
   float ground = height*0.95;
   float against = 0.01;
+  float fastAgainst = against * 2;
+  float shadeAlpha = 0.7;
   
   public FallingFireball(float x, float y, float ballSize, float vX, float vY, float vZ, float aX, float aY, float aZ){
     myBall = new Fireball(x, y, ballSize);
@@ -56,9 +58,7 @@ public class FallingFireball{
     stroke(myBall.ballColor);
     for(int i = pointsLogs.size()-1; i >= 0; i--){
       Point2D.Float cPnt = (Point2D.Float)pointsLogs.get(i);
-//      Point2D.Float nPnt = (Point2D.Float)pointsLogs.get(i+1);
-//      line(cPnt.x, cPnt.y, nPnt.x, nPnt.y);
-      myBall.drawBallShade(cPnt.x, cPnt.y, pow(0.7, pointsLogs.size()-i));
+      myBall.drawBallShade(cPnt.x, cPnt.y, pow(shadeAlpha, pointsLogs.size()-i));
     }
     pointsLogs.add(new Point2D.Float(myBall.getX(), myBall.getY()));
     if(pointsLogs.size() > logLen) pointsLogs.remove(0);
@@ -74,9 +74,7 @@ public class FallingFireball{
   }
   
   private float calcAgainst(){
-    float r = this.against * sqrt(sq(this.vX) + sq(this.vY) + sq(this.vZ));
-    return (r > 1) ? (this.against *2) : r;
-//    return (this.against * sq(v) * (v >= 0 ? -1:1));
-//    return 0;
+    float against = this.against * sqrt(sq(this.vX) + sq(this.vY) + sq(this.vZ));
+    return (against > 1) ? (fastAgainst) : against;
   }
 }
